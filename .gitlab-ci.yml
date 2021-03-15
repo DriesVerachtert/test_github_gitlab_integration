@@ -1,0 +1,19 @@
+job1:
+  tags:
+    - bb5_user
+  variables:
+    bb5_memory: 100M
+    bb5_duration: "5:00"
+    bb5_cpus_per_task: 1
+    bb5_constraint: knl
+    bb5_account: proj95
+  script:
+    - echo this .gitlab-ci.yml is added on the github repo
+    - echo this is job $MY_JOB_ID using bb5_build_dir=${bb5_build_dir}
+    - echo working directory is $(pwd) and HOME is $HOME
+    - id
+    - env | grep -i GITHUB
+    - env | grep -i GITLAB
+    - env
+ 
+
