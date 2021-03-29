@@ -35,10 +35,10 @@ BODY_PART_2='}}}'
 
 sleep 1
 
-curl -X POST -u 'driesverachtert:${GITHUB_API_KEY}' -H "Accept: application/vnd.github.v3+json" https://api.github.com/gists -d "${BODY_PART_1}${BODY_LOG_CONTENTS}${BODY_PART_2}"
+curl -X POST -u "driesverachtert:${GITHUB_API_KEY}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/gists -d "${BODY_PART_1}${BODY_LOG_CONTENTS}${BODY_PART_2}"
 
 # for debugging, get all data about the PR that contains this commit
-curl -s -u 'driesverachtert:${GITHUB_API_KEY}' -H "Accept: application/vnd.github.groot-preview+json"  https://api.github.com/repos/BlueBrain/test_github_gitlab_integration/commits/${LATEST_COMMIT_SHA}/pulls 
+curl -s -u "driesverachtert:${GITHUB_API_KEY}" -H "Accept: application/vnd.github.groot-preview+json"  https://api.github.com/repos/BlueBrain/test_github_gitlab_integration/commits/${LATEST_COMMIT_SHA}/pulls 
 # just get the comments_url of this PR, so that we can add another comment
 COMMENTS_URL=$(curl -s -u 'driesverachtert:${GITHUB_API_KEY}' -H "Accept: application/vnd.github.groot-preview+json"  https://api.github.com/repos/BlueBrain/test_github_gitlab_integration/commits/${LATEST_COMMIT_SHA}/pulls | jq -r '.[]["_links"]["comments"]["href"]')
 
