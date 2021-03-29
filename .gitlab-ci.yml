@@ -15,6 +15,11 @@ job1:
     - id
     - env | grep -i GITHUB
     - env | grep -i GITLAB
-    - env
  
 
+job_send_log_to_pr:
+  image: ubuntu:latest
+  script:
+    - apt-get update
+    - apt-get install jo jq
+    - bash test_add_log_to_pr.sh
