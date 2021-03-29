@@ -1,4 +1,9 @@
+stages:
+  - run_bb5_job
+  - upload_log_to_github_pr
+
 job1:
+  stage: run_bb5_job
   tags:
     - bb5_user
   variables:
@@ -18,6 +23,7 @@ job1:
  
 
 job_send_log_to_pr:
+  stage: upload_log_to_github_pr
   image: ubuntu:latest
   script:
     - apt-get update
