@@ -35,7 +35,14 @@ BODY_PART_2='}}'
 
 sleep 1
 
-curl -X POST -u "driesverachtert:${GITHUB_API_KEY}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/gists -d "${BODY_PART_1}${BODY_LOG_CONTENTS}${BODY_PART_2}"
+curl -X POST -u "driesverachtert:${GITHUB_API_KEY}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/gists -d "${BODY_PART_1}${BODY_LOG_CONTENTS}${BODY_PART_2}" > create-gist-result.json
+sleep 1
+cat create-gist-result.json
+sleep 1
+GIST_RAW_URL=$(cat create-gist-result.json | jq -r '.[0]["files"]["job1.txt"]["raw_url"]')
+sleep 1
+echo GIST_RAW_URL=${GIST_RAW_URL}
+
 
 # for debugging, get all data about the PR that contains this commit
 curl -s -u "driesverachtert:${GITHUB_API_KEY}" -H "Accept: application/vnd.github.groot-preview+json"  https://api.github.com/repos/BlueBrain/test_github_gitlab_integration/commits/${LATEST_COMMIT_SHA}/pulls 
@@ -44,4 +51,4 @@ COMMENTS_URL=$(curl -s -u "driesverachtert:${GITHUB_API_KEY}" -H "Accept: applic
 
 echo COMMENTS_URL=${COMMENTS_URL}
 
-# curl -s -u 'driesverachtert:${GITHUB_API_KEY}' -X POST -d '{"body": "test message"}' https://api.github.com/repos/BlueBrain/test_github_gitlab_integration/issues/3/comments
+curl -s -u "driesverachtert:${GITHUB_API_KEY}" -X POST -d "{\"body\": \"Job build log of job job1 with ID ${JOB_ID_OF_JOB1} of pipeline ${CI_PIPELINE_ID} triggered by commit ${LATEST_COMMIT_SHA}: ${GIST_RAW_URL} \"}" ${COMMENTS_URL}
