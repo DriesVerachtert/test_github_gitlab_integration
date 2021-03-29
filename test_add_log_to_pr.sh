@@ -30,7 +30,7 @@ cat log1.txt
 echo "==============" End of cat of log1.txt =============="
 sleep 1
 BODY_PART_1='{"public":false,"files":{"job1.txt":'
-BODY_LOG_CONTENTS=$( jo contents="$(cat log1.txt)" )
+BODY_LOG_CONTENTS=$( jo content="$(cat log1.txt)" )
 BODY_PART_2='}}'
 
 sleep 1
