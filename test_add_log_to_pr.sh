@@ -29,9 +29,9 @@ echo "==============" Start of cat of log1.txt =============="
 cat log1.txt
 echo "==============" End of cat of log1.txt =============="
 sleep 1
-BODY_PART_1='{"public":false,"files":{"job1.txt":{'
+BODY_PART_1='{"public":false,"files":{"job1.txt":'
 BODY_LOG_CONTENTS=$( jo contents="$(cat log1.txt)" )
-BODY_PART_2='}}}'
+BODY_PART_2='}}'
 
 sleep 1
 
@@ -40,7 +40,7 @@ curl -X POST -u "driesverachtert:${GITHUB_API_KEY}" -H "Accept: application/vnd.
 # for debugging, get all data about the PR that contains this commit
 curl -s -u "driesverachtert:${GITHUB_API_KEY}" -H "Accept: application/vnd.github.groot-preview+json"  https://api.github.com/repos/BlueBrain/test_github_gitlab_integration/commits/${LATEST_COMMIT_SHA}/pulls 
 # just get the comments_url of this PR, so that we can add another comment
-COMMENTS_URL=$(curl -s -u 'driesverachtert:${GITHUB_API_KEY}' -H "Accept: application/vnd.github.groot-preview+json"  https://api.github.com/repos/BlueBrain/test_github_gitlab_integration/commits/${LATEST_COMMIT_SHA}/pulls | jq -r '.[]["_links"]["comments"]["href"]')
+COMMENTS_URL=$(curl -s -u "driesverachtert:${GITHUB_API_KEY}" -H "Accept: application/vnd.github.groot-preview+json"  https://api.github.com/repos/BlueBrain/test_github_gitlab_integration/commits/${LATEST_COMMIT_SHA}/pulls | jq -r '.[]["_links"]["comments"]["href"]')
 
 echo COMMENTS_URL=${COMMENTS_URL}
 
