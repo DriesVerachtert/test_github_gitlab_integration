@@ -39,7 +39,7 @@ curl -X POST -u "driesverachtert:${GITHUB_API_KEY}" -H "Accept: application/vnd.
 sleep 1
 cat create-gist-result.json
 sleep 1
-GIST_RAW_URL=$(cat create-gist-result.json | jq -r '.[0]["files"]["job1.txt"]["raw_url"]')
+GIST_RAW_URL=$(cat create-gist-result.json | jq -r '.["files"]["job1.txt"]["raw_url"]')
 sleep 1
 echo GIST_RAW_URL=${GIST_RAW_URL}
 
