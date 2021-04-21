@@ -1,4 +1,9 @@
+stages:
+  - run_bb5_job
+  - upload_log_to_github_pr
+
 job1:
+  stage: run_bb5_job
   tags:
     - bb5_user
   variables:
@@ -9,11 +14,18 @@ job1:
     bb5_account: proj95
   script:
     - echo this .gitlab-ci.yml is added on the github repo
-    - echo this is job $MY_JOB_ID using bb5_build_dir=${bb5_build_dir}
+    - cat README.md
+    - git log
     - echo working directory is $(pwd) and HOME is $HOME
     - id
     - env | grep -i GITHUB
     - env | grep -i GITLAB
-    - env
  
 
+job_send_log_to_pr:
+  stage: upload_log_to_github_pr
+  image: ubuntu:latest
+  script:
+    - apt-get update
+    - apt-get install -y jo jq git curl sed grep
+    - bash test_add_log_to_pr.sh
